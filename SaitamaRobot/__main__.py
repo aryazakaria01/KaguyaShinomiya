@@ -51,35 +51,34 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Hello {},My Name is umm terserah ajalah
-I AM A SOMETHING OF WIBU SCHOOLS & CLUBS WKWK.
-I will help manage group in there.
+Hello {},My Name is KAGUYA
+𝕀 𝔸𝕄 𝔸 𝕂𝔸𝔾𝕌𝕐𝔸 𝕊ℍ𝕀ℕ𝕆𝕄𝕀𝕐𝔸 𝕋𝕆 ℙℝ𝕆𝕋𝔼ℂℂ 𝕐𝕆𝕌ℝ 𝕋𝔼𝕃𝔼𝔾ℝ𝔸𝕄 𝔾ℝ𝕆𝕌ℙ 𝔽ℝ𝕆𝕄 𝕊ℙ𝔸𝕄𝕄𝔼ℝ
+I will help you manage your group
+✦ Click Below help button or send /help to know all my Commands.
 """
 
 HELP_STRINGS = """
-Hey there! My name is *{}*.
-I'm a Something From your heart,I will help you manage your groups! Have a look at the following for an idea of some of \
-the things I can help you with.
-
 *Main* commands available:
- • /help: PM's you this message.
- • /help <module name>: PM's you info about that module.
- • /donate: information on how to donate!
- • /settings:
-   • in PM: will send you your settings for all supported modules.
-   • in a group: will redirect you to pm, with all that chat's settings.
-
-
+*I'm Maintained By* @Badboyanim 
+Bug Report to @YuiiSupport[.](https://telegra.ph/file/18cbe40364ec9befb73c4.jpg)
+ ➛ /start: Starts me! You've probably already used this.
+ ➛ /donate: You can support my creater using this command.
+ ➛ /help: PM's you this message.
+ ➛ /help <module name>: PM's you info about that module.
+ ➛ /settings: 
+   ❂ in PM: will send you your settings for all supported modules.
+   ❂ in a group: will redirect you to pm, with all that chat's settings.
 {}
 And the following:
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-SAITAMA_IMG = "https://telegra.ph/file/f4a6bdce84bc5d496fb41.mp4"
+SAITAMA_IMG = "https://telegra.ph/file/e38f317e4ead8f0c0c42a.jpg"
 
-DONATE_STRING = """donate to the original writer of the Base code, Paul
-There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
+DONATE_STRING = """Heya, glad to hear you want to donate!
+You can donate to the original writer's of the Base code,
+Support them  [Arya Zakaria](t.me/Badboyanim), [Ihsan](t.me/RxyMX),"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -177,15 +176,17 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(                   
                           [[
                               InlineKeyboardButton(
-                              text="stop",
+                              text="🔥Add KAGUYA To Your Group🔥",
                               url="t.me/{}?startgroup=true".format(
                                   context.bot.username))
                           ], 
                           [
                               InlineKeyboardButton(
-                              text="🏫 WIBU SCHOOLS & CLUBS 🏫",
-                              url=f"https://t.me/sekolahwibu"),
-                             
+                              text="🍁Support Group🍁",
+                              url=f"https://t.me/CyberSupportGroup"),
+                              InlineKeyboardButton(
+                              text="✨Updates Channel✨",
+                              url="https://t.me/CyberMusicProject")
                           ]])) 
     else:
         update.effective_message.reply_text(
