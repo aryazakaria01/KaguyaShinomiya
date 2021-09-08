@@ -80,6 +80,11 @@ DONATE_STRING = """Heya, glad to hear you want to donate!
 You can donate to the original writer's of the Base code,
 Support them  [Arya Zakaria](t.me/Badboyanim), [Ihsan](t.me/RxyMX),"""
 
+VERSION = "7.0"
+
+def vercheck() -> str:
+    return str(VERSION)
+  
 IMPORTED = {}
 MIGRATEABLE = []
 HELPABLE = {}
@@ -176,16 +181,16 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(                   
                           [[
                               InlineKeyboardButton(
-                              text="🔥Add KAGUYA To Your Group🔥",
+                              text="🔥 Add KAGUYA To Your Group 🔥",
                               url="t.me/{}?startgroup=true".format(
                                   context.bot.username))
                           ], 
                           [
                               InlineKeyboardButton(
-                              text="🍁Support Group🍁",
+                              text="🍁 Support Group 🍁",
                               url=f"https://t.me/CyberSupportGroup"),
                               InlineKeyboardButton(
-                              text="✨Updates Channel✨",
+                              text="✨ Updates Channel ✨",
                               url="https://t.me/CyberMusicProject")
                           ]])) 
     else:
