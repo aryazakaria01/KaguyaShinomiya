@@ -11,7 +11,6 @@ from alphabet_detector import AlphabetDetector
 
 import SaitamaRobot.modules.sql.locks_sql as sql
 from SaitamaRobot import dispatcher, DRAGONS, LOGGER
-from SaitamaRobot.modules.sql.approve_sql import is_approved
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from SaitamaRobot.modules.helper_funcs.chat_status import (
     can_delete,
@@ -414,8 +413,7 @@ def unlock(update, context) -> str:
 def del_lockables(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
-    if is_approved(chat.id, user.id):
-        return
+
     for lockable, filter in LOCK_TYPES.items():
         if lockable == "rtl":
             if sql.is_locked(chat.id, lockable) and can_delete(
@@ -620,7 +618,6 @@ Do stickers annoy you? or want to avoid people sharing links? or pictures? \
 You're in the right place!
 The locks module allows you to lock away some common items in the \
 telegram world; the bot will automatically delete them!
-
  • `/locktypes`*:* Lists all possible locktypes
  
 *Admins only:*
@@ -633,7 +630,6 @@ eg:
 Locking urls will auto-delete all messages with urls, locking stickers will restrict all \
 non-admin users from sending stickers, etc.
 Locking bots will stop non-admins from adding bots to the chat.
-
 *Note:*
  • Unlocking permission *info* will allow members (non-admins) to change the group information, such as the description or the group name
  • Unlocking permission *pin* will allow members (non-admins) to pinned a message in a group
