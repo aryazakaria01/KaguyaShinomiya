@@ -18,7 +18,8 @@ class ChatAccessConnectionSettings(BASE):
 
     def __repr__(self):
         return "<Chat access settings ({}) is {}>".format(
-            self.chat_id, self.allow_connect_to_chat
+            self.chat_id,
+            self.allow_connect_to_chat,
         )
 
 
@@ -113,9 +114,8 @@ def disconnect(user_id):
             SESSION.delete(disconnect)
             SESSION.commit()
             return True
-        else:
-            SESSION.close()
-            return False
+        SESSION.close()
+        return False
 
 
 def add_history_conn(user_id, chat_id, chat_name):
@@ -128,13 +128,15 @@ def add_history_conn(user_id, chat_id, chat_name):
                 .filter(ConnectionHistory.user_id == str(user_id))
                 .count()
             )
-            getchat_id = {}
-            for x in HISTORY_CONNECT[int(user_id)]:
-                getchat_id[HISTORY_CONNECT[int(user_id)][x]["chat_id"]] = x
+            getchat_id = {
+                HISTORY_CONNECT[int(user_id)][x]["chat_id"]: x
+                for x in HISTORY_CONNECT[int(user_id)]
+            }
+
             if chat_id in getchat_id:
                 todeltime = getchat_id[str(chat_id)]
                 delold = SESSION.query(ConnectionHistory).get(
-                    (int(user_id), str(chat_id))
+                    (int(user_id), str(chat_id)),
                 )
                 if delold:
                     SESSION.delete(delold)
@@ -146,7 +148,7 @@ def add_history_conn(user_id, chat_id, chat_name):
                 for x in todel:
                     chat_old = HISTORY_CONNECT[int(user_id)][x]["chat_id"]
                     delold = SESSION.query(ConnectionHistory).get(
-                        (int(user_id), str(chat_old))
+                        (int(user_id), str(chat_old)),
                     )
                     if delold:
                         SESSION.delete(delold)
