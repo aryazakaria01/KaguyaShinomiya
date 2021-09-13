@@ -9,12 +9,13 @@ from telegram.error import BadRequest
 import SaitamaRobot.modules.fun_strings as fun_strings
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (is_user_admin)
+from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 
-GIF_ID = 'CgACAgUAAx0EVmwfqQACElhfo3yZv1njCC11INcQSAi4UlN8vwACqwADg_8wVeGSv41OYU6zHgQ'
+GIF_ID = "CgACAgUAAx0EVmwfqQACElhfo3yZv1njCC11INcQSAi4UlN8vwACqwADg_8wVeGSv41OYU6zHgQ"
 
-PHOTO = 'https://i.imgur.com/UjiCJhZ.jpg'
+PHOTO = "https://i.imgur.com/UjiCJhZ.jpg"
+
 
 @run_async
 def runs(update: Update, context: CallbackContext):
@@ -24,45 +25,73 @@ def runs(update: Update, context: CallbackContext):
 @run_async
 def igris(update: Update, context: CallbackContext):
     update.effective_message.reply_text(random.choice(fun_strings.IGRIS_STRINGS))
-                                                
+
+
 @run_async
 def arise(update: Update, context: CallbackContext):
     message = update.effective_message
-    name = message.reply_to_message.from_user.first_name if message.reply_to_message else message.from_user.first_name
-    reply_photo = message.reply_to_message.reply_photo if message.reply_to_message else message.reply_photo
-    reply_photo(
-        random.choice(fun_strings.IGRIS_IMG), caption=f'*Command Me {name}*')
-     
+    name = (
+        message.reply_to_message.from_user.first_name
+        if message.reply_to_message
+        else message.from_user.first_name
+    )
+    reply_photo = (
+        message.reply_to_message.reply_photo
+        if message.reply_to_message
+        else message.reply_photo
+    )
+    reply_photo(random.choice(fun_strings.IGRIS_IMG), caption=f"*Command Me {name}*")
+
 
 @run_async
 def truth(update: Update, context: CallbackContext):
     update.effective_message.reply_text(random.choice(fun_strings.TRUTH_STRINGS))
 
+
 @run_async
 def insult(update: Update, _):
     msg = update.effective_message
-    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text = (
+        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    )
     reply_text(random.choice(fun_strings.INSULT_STRINGS))
+
 
 @run_async
 def dare(update: Update, context: CallbackContext):
     update.effective_message.reply_text(random.choice(fun_strings.DARE_STRINGS))
-    
-@run_async
-def sanitize(update: Update, context: CallbackContext):
-    message = update.effective_message
-    name = message.reply_to_message.from_user.first_name if message.reply_to_message else message.from_user.first_name
-    reply_animation = message.reply_to_message.reply_animation if message.reply_to_message else message.reply_animation
-    reply_animation(GIF_ID, caption=f'*Sanitizes {name}*')
 
 
 @run_async
 def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
-    name = message.reply_to_message.from_user.first_name if message.reply_to_message else message.from_user.first_name
-    reply_animation = message.reply_to_message.reply_animation if message.reply_to_message else message.reply_animation
-    reply_animation(
-        random.choice(fun_strings.GIFS), caption=f'*Sanitizes {name}*')
+    name = (
+        message.reply_to_message.from_user.first_name
+        if message.reply_to_message
+        else message.from_user.first_name
+    )
+    reply_animation = (
+        message.reply_to_message.reply_animation
+        if message.reply_to_message
+        else message.reply_animation
+    )
+    reply_animation(GIF_ID, caption=f"*Sanitizes {name}*")
+
+
+@run_async
+def sanitize(update: Update, context: CallbackContext):
+    message = update.effective_message
+    name = (
+        message.reply_to_message.from_user.first_name
+        if message.reply_to_message
+        else message.from_user.first_name
+    )
+    reply_animation = (
+        message.reply_to_message.reply_animation
+        if message.reply_to_message
+        else message.reply_animation
+    )
+    reply_animation(random.choice(fun_strings.GIFS), caption=f"*Sanitizes {name}*")
 
 
 @run_async
@@ -71,7 +100,11 @@ def slap(update: Update, context: CallbackContext):
     message = update.effective_message
     chat = update.effective_chat
 
-    reply_text = message.reply_to_message.reply_text if message.reply_to_message else message.reply_text
+    reply_text = (
+        message.reply_to_message.reply_text
+        if message.reply_to_message
+        else message.reply_text
+    )
 
     curr_user = html.escape(message.from_user.first_name)
     user_id = extract_user(message, args)
@@ -90,7 +123,8 @@ def slap(update: Update, context: CallbackContext):
                     chat.id,
                     message.from_user.id,
                     until_date=mutetime,
-                    permissions=ChatPermissions(can_send_messages=False))
+                    permissions=ChatPermissions(can_send_messages=False),
+                )
             reply_text(temp[0])
         else:
             reply_text(temp)
@@ -114,8 +148,7 @@ def slap(update: Update, context: CallbackContext):
     if update.effective_user.id == 1096215023:
         temp = "@NeoTheKitty scratches {user2}"
 
-    reply = temp.format(
-        user1=user1, user2=user2, item=item, hits=hit, throws=throw)
+    reply = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
 
     reply_text(reply, parse_mode=ParseMode.HTML)
 
@@ -174,14 +207,18 @@ def toss(update: Update, context: CallbackContext):
 @run_async
 def shrug(update: Update, context: CallbackContext):
     msg = update.effective_message
-    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text = (
+        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    )
     reply_text(r"¯\_(ツ)_/¯")
 
 
 @run_async
 def bluetext(update: Update, context: CallbackContext):
     msg = update.effective_message
-    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text = (
+        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    )
     reply_text(
         "/BLUE /TEXT\n/MUST /CLICK\n/I /AM /A /STUPID /ANIMAL /THAT /IS /ATTRACTED /TO /COLORS"
     )
@@ -202,14 +239,23 @@ def rlg(update: Update, context: CallbackContext):
 
 @run_async
 def decide(update: Update, context: CallbackContext):
-    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
+    reply_text = (
+        update.effective_message.reply_to_message.reply_text
+        if update.effective_message.reply_to_message
+        else update.effective_message.reply_text
+    )
     reply_text(random.choice(fun_strings.DECIDE))
 
 
 @run_async
 def table(update: Update, context: CallbackContext):
-    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
+    reply_text = (
+        update.effective_message.reply_to_message.reply_text
+        if update.effective_message.reply_to_message
+        else update.effective_message.reply_text
+    )
     reply_text(random.choice(fun_strings.TABLE))
+
 
 __help__ = """
  • `/runs`*:* reply a random string from an array of replies
@@ -235,7 +281,7 @@ __help__ = """
 """
 
 INSULT_HANDLER = DisableAbleCommandHandler("insult", insult)
-ARISE_HANDLER = DisableAbleCommandHandler("arise", arise)                                      
+ARISE_HANDLER = DisableAbleCommandHandler("arise", arise)
 IGRIS_HANDLER = DisableAbleCommandHandler("igris", igris)
 TRUTH_HANDLER = DisableAbleCommandHandler("truth", truth)
 DARE_HANDLER = DisableAbleCommandHandler("dare", dare)
@@ -252,7 +298,7 @@ DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 
 dispatcher.add_handler(INSULT_HANDLER)
-dispatcher.add_handler(ARISE_HANDLER)                                          
+dispatcher.add_handler(ARISE_HANDLER)
 dispatcher.add_handler(IGRIS_HANDLER)
 dispatcher.add_handler(TRUTH_HANDLER)
 dispatcher.add_handler(DARE_HANDLER)
@@ -270,11 +316,33 @@ dispatcher.add_handler(TABLE_HANDLER)
 
 __mod_name__ = "Fun"
 __command_list__ = [
-    "runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide",
-    "table", "pat", "sanitize"
+    "runs",
+    "slap",
+    "roll",
+    "toss",
+    "shrug",
+    "bluetext",
+    "rlg",
+    "decide",
+    "table",
+    "pat",
+    "sanitize",
 ]
 __handlers__ = [
-    RUNS_HANDLER,IGRIS_HANDLER,ARISE_HANDLER,TRUTH_HANDLER, DARE_HANDLER, SLAP_HANDLER, PAT_HANDLER, ROLL_HANDLER, TOSS_HANDLER,
-    SHRUG_HANDLER, BLUETEXT_HANDLER, RLG_HANDLER, DECIDE_HANDLER, TABLE_HANDLER,INSULT_HANDLER, 
-    SANITIZE_HANDLER
+    RUNS_HANDLER,
+    IGRIS_HANDLER,
+    ARISE_HANDLER,
+    TRUTH_HANDLER,
+    DARE_HANDLER,
+    SLAP_HANDLER,
+    PAT_HANDLER,
+    ROLL_HANDLER,
+    TOSS_HANDLER,
+    SHRUG_HANDLER,
+    BLUETEXT_HANDLER,
+    RLG_HANDLER,
+    DECIDE_HANDLER,
+    TABLE_HANDLER,
+    INSULT_HANDLER,
+    SANITIZE_HANDLER,
 ]

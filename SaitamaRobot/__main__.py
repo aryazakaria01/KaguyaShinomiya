@@ -254,7 +254,7 @@ def start(update: Update, context: CallbackContext):
                 uptime
             ),
             parse_mode=ParseMode.HTML,
-            )
+        )
 
 
 # for test purposes

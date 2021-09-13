@@ -41,10 +41,16 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
 
 
-LOGGER.info("[KaguyaRobot] Kai is starting. | An Arya Union Project. | Licensed under GPLv3.")
+LOGGER.info(
+    "[KaguyaRobot] Kai is starting. | An Arya Union Project. | Licensed under GPLv3."
+)
 
-LOGGER.info("[KaguyaRobot] Not affiliated to Shie Hashaikai or Villain in any way whatsoever.")
-LOGGER.info("[KaguyaRobot] Project maintained by: github.com/aryzakaria01 (t.me/Badboyanim)")
+LOGGER.info(
+    "[KaguyaRobot] Not affiliated to Shie Hashaikai or Villain in any way whatsoever."
+)
+LOGGER.info(
+    "[KaguyaRobot] Project maintained by: github.com/aryzakaria01 (t.me/Badboyanim)"
+)
 
 # if version < 3.6, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:

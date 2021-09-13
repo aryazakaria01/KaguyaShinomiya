@@ -1,6 +1,5 @@
 RUN_STRINGS = (
-    "Now you see me, now you don't."
-    "ε=ε=ε=ε=┌(;￣▽￣)┘",
+    "Now you see me, now you don't." "ε=ε=ε=ε=┌(;￣▽￣)┘",
     "Get back here!",
     "REEEEEEEEEEEEEEEEEE!!!!!!!",
     "Look out for the wall!",
@@ -87,8 +86,7 @@ TRUTH_STRINGS = (
     "Have you ever eaten something off the floor?",
     "Do you like hanging out with your parents?",
     "What is something that no one else knows about you? (6_9)",
-                                                            
-     )
+)
 
 DARE_STRINGS = (
     "Make up a story about any item that comes in your mind *right now*",
@@ -100,16 +98,14 @@ DARE_STRINGS = (
     "Think about a word starts with T and it must be longer then 6 letters. After that Write that word *backwards* in 17 seconds",
     "Think about a word starts with T and it must be longer then 8 letters. After that Write that word *backwards* in 17 seconds",
     "Think about a word starts with E and it must be longer then 6 letters. After that Write that word *backwards* in 17 seconds",
-
-     )
+)
 
 IGRIS_IMG = (
-     "https://i.imgur.com/WcJPIHp.jpg", 
-     "https://i.imgur.com/7bM0Xoq.jpg", 
-     "https://i.imgur.com/faksrvE.jpg", 
-     "https://i.imgur.com/UjiCJhZ.jpg"
-
-     ) 
+    "https://i.imgur.com/WcJPIHp.jpg",
+    "https://i.imgur.com/7bM0Xoq.jpg",
+    "https://i.imgur.com/faksrvE.jpg",
+    "https://i.imgur.com/UjiCJhZ.jpg",
+)
 
 
 INSULT_STRINGS = [
@@ -174,34 +170,32 @@ INSULT_STRINGS = [
 ]
 
 IGRIS_STRINGS = (
-      "YES SIR, Command me", 
-      "You Summoned me?", 
-      "First Shadow ARISED!", 
-      "I Only Serve To SUNG-JIN-WU, JUST KIDDING", 
-      "When is our next Mission?", 
-      "*You have Summoned the most powerful Shadow*", 
-      "STOP ARISING ME WITHOUT REASONS", 
-      "Here we go again", 
-      "IGRIS,*Joined the Chat*", 
-      "Yaaaaaaa?", 
-      "IGRIS.EXE STOPPED WORKING", 
-      "Okay, Let's Go", 
-      "Let's do this", 
-      " Boring ", 
-      "Hold up, Coming"
-    
-      ) 
-     
-IGRIS_PHOTO = (
-    "https://wallpapercave.com/wp/wp2164441.jpg") 
+    "YES SIR, Command me",
+    "You Summoned me?",
+    "First Shadow ARISED!",
+    "I Only Serve To SUNG-JIN-WU, JUST KIDDING",
+    "When is our next Mission?",
+    "*You have Summoned the most powerful Shadow*",
+    "STOP ARISING ME WITHOUT REASONS",
+    "Here we go again",
+    "IGRIS,*Joined the Chat*",
+    "Yaaaaaaa?",
+    "IGRIS.EXE STOPPED WORKING",
+    "Okay, Let's Go",
+    "Let's do this",
+    " Boring ",
+    "Hold up, Coming",
+)
+
+IGRIS_PHOTO = "https://wallpapercave.com/wp/wp2164441.jpg"
 
 
 GIFS = [
-    'CgACAgUAAx0EVmwfqQACElhfo3yZv1njCC11INcQSAi4UlN8vwACqwADg_8wVeGSv41OYU6zHgQ',
-    'CgACAgUAAx0CVmwfqQACEoZfo4AAAcduM428ax1T0y-zo1tXdFUAAlUBAAJu09hWrXoj81vn9B8eBA',
-    'CgACAgQAAx0CVmwfqQACEodfo4AAAdRGH1X6XUseFvY1X6raVGkAAmgIAAJWQ9FR6NdhTVfyDzgeBA', 
-    'CgACAgQAAxkBAAN4X7oiKAOFtoB2nH-3GRCTclxJapsAAm4CAAKUq5VSwanbaqA_tZceBA', 
-    'CgACAgQAAxkBAAN5X7oiMA8mY1BZGp5I4VdfoDg-oH8AAksCAAIstI1SCcfAOJunTIEeBA'
+    "CgACAgUAAx0EVmwfqQACElhfo3yZv1njCC11INcQSAi4UlN8vwACqwADg_8wVeGSv41OYU6zHgQ",
+    "CgACAgUAAx0CVmwfqQACEoZfo4AAAcduM428ax1T0y-zo1tXdFUAAlUBAAJu09hWrXoj81vn9B8eBA",
+    "CgACAgQAAx0CVmwfqQACEodfo4AAAdRGH1X6XUseFvY1X6raVGkAAmgIAAJWQ9FR6NdhTVfyDzgeBA",
+    "CgACAgQAAxkBAAN4X7oiKAOFtoB2nH-3GRCTclxJapsAAm4CAAKUq5VSwanbaqA_tZceBA",
+    "CgACAgQAAxkBAAN5X7oiMA8mY1BZGp5I4VdfoDg-oH8AAksCAAIstI1SCcfAOJunTIEeBA",
 ]
 
 SLAP_SAITAMA_TEMPLATES = (
@@ -212,8 +206,9 @@ SLAP_SAITAMA_TEMPLATES = (
         "Stop slapping me just because I can't mute you. REEEEEEEEEE.",  # reply to admin
         "tmute",  # command
         "Shut up!",
-        "Silence!"
-    ])
+        "Silence!",
+    ],
+)
 
 SLAP_TEMPLATES = (
     "{user2} was killed by magic.",
@@ -314,12 +309,12 @@ SLAP_TEMPLATES = (
     "Zekxx Threw his Demon Sword on {user2}!",
     "{user1} took all of {user2}'s cookies.",
     "{user2} wa mou.......Shindeiru! - {user1}.",
-    "{user2} lost his race piece!",  #No game no life reference
-    "Shut up {user2}, you are just {user2}.",  #No game no life reference
-    "{user1} hits {user2} with Aka si anse!",  #No game no life reference
-    "@NeoTheKitty scratches {user2}",  #Pixels pet cat - @NeoTheKitty 
-    "Majin buu ate {user2}",  #Dbz
-    "Goblin slayer slays {user2}",  #Goblin Slayer
+    "{user2} lost his race piece!",  # No game no life reference
+    "Shut up {user2}, you are just {user2}.",  # No game no life reference
+    "{user1} hits {user2} with Aka si anse!",  # No game no life reference
+    "@NeoTheKitty scratches {user2}",  # Pixels pet cat - @NeoTheKitty
+    "Majin buu ate {user2}",  # Dbz
+    "Goblin slayer slays {user2}",  # Goblin Slayer
 )
 
 PAT_TEMPLATES = (
@@ -331,31 +326,33 @@ PAT_TEMPLATES = (
     "*{user2}'s waifu pats their head*",
     "*{user2}'s got free headpats*",
     "No pats for {user2}!",
-    
 )
 
 PAT_GIFS = (
     "CgACAgQAAxkBAALRX19Xs7tBdOH1gQwS_rglVRkTbgVYAAKEAgACmQn9UWlyGa_xy9_aGwQ",
-    "CgACAgEAAxkBAALRYF9Xs8EnhsDfDpld3ILoqTbzDmwxAAJFAAOJxjlHECanwn69E5QbBA", 
-    "CgACAgQAAxkBAAO5X7olTkYuRTw1AV__6mFehORkP4QAAiMCAAI3KIxSjBqOTuo4xf0eBA", 
-    "CgACAgQAAxkBAAO6X7olTklDbgs9nr5bNbM9xy0uunUAAmACAAL1G4xSKOH5wmDvxy4eBA", 
-    "CgACAgQAAxkBAAO7X7olTq_mAur7bsieTD5QnyQ06rUAAlwCAAINjoRSWyAJKJ9n2moeBA") 
+    "CgACAgEAAxkBAALRYF9Xs8EnhsDfDpld3ILoqTbzDmwxAAJFAAOJxjlHECanwn69E5QbBA",
+    "CgACAgQAAxkBAAO5X7olTkYuRTw1AV__6mFehORkP4QAAiMCAAI3KIxSjBqOTuo4xf0eBA",
+    "CgACAgQAAxkBAAO6X7olTklDbgs9nr5bNbM9xy0uunUAAmACAAL1G4xSKOH5wmDvxy4eBA",
+    "CgACAgQAAxkBAAO7X7olTq_mAur7bsieTD5QnyQ06rUAAlwCAAINjoRSWyAJKJ9n2moeBA",
+)
 
 PAT_STICKERS = (
     "CAACAgQAAxkBAALRWV9Xs4HH0XaXfhZe-jWaZoXfs-IsAAJYAwACdDgSEHYOt4KvL02oGwQ",
-    "CAACAgQAAxkBAALRXF9Xs6XmIeDbnoL1wiDky0TdX-CvAAKKAQAC1TMzC9A3CtiT2rqVGwQ", 
+    "CAACAgQAAxkBAALRXF9Xs6XmIeDbnoL1wiDky0TdX-CvAAKKAQAC1TMzC9A3CtiT2rqVGwQ",
     "CAACAgQAAxkBAAPCX7ol0GGF-58u9AfabFk_16ehVXEAArUAA9UzMwuz7SpKK9TonB4E",
-    "CAACAgQAAxkBAAPDX7ol2ixI5WdJ48h8rQYbc__6KisAAt8AA9UzMwusEnTVQ5yoAh4E", 
-    "CAACAgQAAxkBAAPEX7ol55uzT-EkbHOkA-_94MiMcBgAAvAAA9UzMws7KHpoG8wBjh4E") 
+    "CAACAgQAAxkBAAPDX7ol2ixI5WdJ48h8rQYbc__6KisAAt8AA9UzMwusEnTVQ5yoAh4E",
+    "CAACAgQAAxkBAAPEX7ol55uzT-EkbHOkA-_94MiMcBgAAvAAA9UzMws7KHpoG8wBjh4E",
+)
 
 IGRIS_STICKERS = (
-      "CAACAgUAAxkBAAIDQF-7_69odiU6ityjRjqRcknwgEi4AAKRAANpkK04stJbSpXkS-geBA",
-      "CAACAgUAAxkBAAIDP1-7_6lnPR1y5P7R6BqCBHEsyL2WAAKQAANpkK045aq_E5n7-ogeBA", 
-      "CAACAgUAAxkBAAIDPl-7_6MG9sSVGmdnXXKbofCqhHl6AAKPAANpkK047gg7KKlXdb4eBA", 
-      "CAACAgUAAxkBAAIDPV-7_6CbPPi7U2Bz27SQFgQPWlM8AAKOAANpkK04CM9qcoyutvceBA") 
+    "CAACAgUAAxkBAAIDQF-7_69odiU6ityjRjqRcknwgEi4AAKRAANpkK04stJbSpXkS-geBA",
+    "CAACAgUAAxkBAAIDP1-7_6lnPR1y5P7R6BqCBHEsyL2WAAKQAANpkK045aq_E5n7-ogeBA",
+    "CAACAgUAAxkBAAIDPl-7_6MG9sSVGmdnXXKbofCqhHl6AAKPAANpkK047gg7KKlXdb4eBA",
+    "CAACAgUAAxkBAAIDPV-7_6CbPPi7U2Bz27SQFgQPWlM8AAKOAANpkK04CM9qcoyutvceBA",
+)
 
 PING_STRING = (
-    " PONG!!! ", 
+    " PONG!!! ",
     "I am here!",
 )
 
@@ -390,7 +387,7 @@ THROW = (
     "flings",
     "chucks",
     "hurls",
-    "Demon sword", 
+    "Demon sword",
 )
 
 HIT = (
@@ -402,67 +399,188 @@ HIT = (
     "pats",
 )
 
-EYES = [['⌐■', '■'], [' ͠°', ' °'], ['⇀', '↼'], ['´• ', ' •`'], ['´', '`'],
-        ['`', '´'], ['ó', 'ò'], ['ò', 'ó'], ['⸌', '⸍'], ['>',
-                                                         '<'], ['Ƹ̵̡', 'Ʒ'],
-        ['ᗒ', 'ᗕ'], ['⟃', '⟄'], ['⪧', '⪦'], ['⪦', '⪧'], ['⪩', '⪨'], ['⪨', '⪩'],
-        ['⪰', '⪯'], ['⫑', '⫒'], ['⨴', '⨵'], ['⩿', '⪀'], ['⩾', '⩽'], ['⩺', '⩹'],
-        ['⩹', '⩺'], ['◥▶', '◀◤'], ['◍', '◎'], ['/͠-', '┐͡-\\'], ['⌣', '⌣”'],
-        [' ͡⎚', ' ͡⎚'], ['≋'], ['૦ઁ'], ['  ͯ'], ['  ͌'], ['ළ'], ['◉'], ['☉'],
-        ['・'], ['▰'], ['ᵔ'], [' ﾟ'], ['□'], ['☼'], ['*'], ['`'], ['⚆'], ['⊜'],
-        ['>'], ['❍'], ['￣'], ['─'], ['✿'], ['•'], ['T'], ['^'], ['ⱺ'], ['@'],
-        ['ȍ'], ['  '], ['  '], ['x'], ['-'], ['$'], ['Ȍ'], ['ʘ'], ['Ꝋ'],
-        [''], ['⸟'], ['๏'], ['ⴲ'], ['◕'], ['◔'], ['✧'], ['■'], ['♥'], [' ͡°'],
-        ['¬'], [' º '], ['⨶'], ['⨱'], ['⏓'], ['⏒'], ['⍜'], ['⍤'], ['ᚖ'], ['ᴗ'],
-        ['ಠ'], ['σ'], ['☯']]
+EYES = [
+    ["⌐■", "■"],
+    [" ͠°", " °"],
+    ["⇀", "↼"],
+    ["´• ", " •`"],
+    ["´", "`"],
+    ["`", "´"],
+    ["ó", "ò"],
+    ["ò", "ó"],
+    ["⸌", "⸍"],
+    [">", "<"],
+    ["Ƹ̵̡", "Ʒ"],
+    ["ᗒ", "ᗕ"],
+    ["⟃", "⟄"],
+    ["⪧", "⪦"],
+    ["⪦", "⪧"],
+    ["⪩", "⪨"],
+    ["⪨", "⪩"],
+    ["⪰", "⪯"],
+    ["⫑", "⫒"],
+    ["⨴", "⨵"],
+    ["⩿", "⪀"],
+    ["⩾", "⩽"],
+    ["⩺", "⩹"],
+    ["⩹", "⩺"],
+    ["◥▶", "◀◤"],
+    ["◍", "◎"],
+    ["/͠-", "┐͡-\\"],
+    ["⌣", "⌣”"],
+    [" ͡⎚", " ͡⎚"],
+    ["≋"],
+    ["૦ઁ"],
+    ["  ͯ"],
+    ["  ͌"],
+    ["ළ"],
+    ["◉"],
+    ["☉"],
+    ["・"],
+    ["▰"],
+    ["ᵔ"],
+    [" ﾟ"],
+    ["□"],
+    ["☼"],
+    ["*"],
+    ["`"],
+    ["⚆"],
+    ["⊜"],
+    [">"],
+    ["❍"],
+    ["￣"],
+    ["─"],
+    ["✿"],
+    ["•"],
+    ["T"],
+    ["^"],
+    ["ⱺ"],
+    ["@"],
+    ["ȍ"],
+    ["  "],
+    ["  "],
+    ["x"],
+    ["-"],
+    ["$"],
+    ["Ȍ"],
+    ["ʘ"],
+    ["Ꝋ"],
+    [""],
+    ["⸟"],
+    ["๏"],
+    ["ⴲ"],
+    ["◕"],
+    ["◔"],
+    ["✧"],
+    ["■"],
+    ["♥"],
+    [" ͡°"],
+    ["¬"],
+    [" º "],
+    ["⨶"],
+    ["⨱"],
+    ["⏓"],
+    ["⏒"],
+    ["⍜"],
+    ["⍤"],
+    ["ᚖ"],
+    ["ᴗ"],
+    ["ಠ"],
+    ["σ"],
+    ["☯"],
+]
 
-MOUTHS = [['v'], ['ᴥ'], ['ᗝ'], ['Ѡ'], ['ᗜ'], ['Ꮂ'], ['ᨓ'], ['ᨎ'],
-          ['ヮ'], ['╭͜ʖ╮'], [' ͟ل͜'], [' ͜ʖ'], [' ͟ʖ'], [' ʖ̯'], ['ω'], [' ³'],
-          [' ε '], ['﹏'], ['□'], ['ل͜'], ['‿'], ['╭╮'], ['‿‿'], ['▾'], ['‸'],
-          ['Д'], ['∀'], ['!'], ['人'], ['.'], ['ロ'], ['_'], ['෴'], ['ѽ'], ['ഌ'],
-          ['⏠'], ['⏏'], ['⍊'], ['⍘'], ['ツ'], ['益'], ['╭∩╮'], ['Ĺ̯'], ['◡'],
-          [' ͜つ']]
+MOUTHS = [
+    ["v"],
+    ["ᴥ"],
+    ["ᗝ"],
+    ["Ѡ"],
+    ["ᗜ"],
+    ["Ꮂ"],
+    ["ᨓ"],
+    ["ᨎ"],
+    ["ヮ"],
+    ["╭͜ʖ╮"],
+    [" ͟ل͜"],
+    [" ͜ʖ"],
+    [" ͟ʖ"],
+    [" ʖ̯"],
+    ["ω"],
+    [" ³"],
+    [" ε "],
+    ["﹏"],
+    ["□"],
+    ["ل͜"],
+    ["‿"],
+    ["╭╮"],
+    ["‿‿"],
+    ["▾"],
+    ["‸"],
+    ["Д"],
+    ["∀"],
+    ["!"],
+    ["人"],
+    ["."],
+    ["ロ"],
+    ["_"],
+    ["෴"],
+    ["ѽ"],
+    ["ഌ"],
+    ["⏠"],
+    ["⏏"],
+    ["⍊"],
+    ["⍘"],
+    ["ツ"],
+    ["益"],
+    ["╭∩╮"],
+    ["Ĺ̯"],
+    ["◡"],
+    [" ͜つ"],
+]
 
 EARS = [
-    ['q', 'p'],
-    ['ʢ', 'ʡ'],
-    ['⸮', '?'],
-    ['ʕ', 'ʔ'],
-    ['ᖗ', 'ᖘ'],
-    ['ᕦ', 'ᕥ'],
-    ['ᕦ(', ')ᕥ'],
-    ['ᕙ(', ')ᕗ'],
-    ['ᘳ', 'ᘰ'],
-    ['ᕮ', 'ᕭ'],
-    ['ᕳ', 'ᕲ'],
-    ['(', ')'],
-    ['[', ']'],
-    ['¯\\_', '_/¯'],
-    ['୧', '୨'],
-    ['୨', '୧'],
-    ['⤜(', ')⤏'],
-    ['☞', '☞'],
-    ['ᑫ', 'ᑷ'],
-    ['ᑴ', 'ᑷ'],
-    ['ヽ(', ')ﾉ'],
-    ['\\(', ')/'],
-    ['乁(', ')ㄏ'],
-    ['└[', ']┘'],
-    ['(づ', ')づ'],
-    ['(ง', ')ง'],
-    ['⎝', '⎠'],
-    ['ლ(', 'ლ)'],
-    ['ᕕ(', ')ᕗ'],
-    ['(∩', ')⊃━☆ﾟ.*'],
+    ["q", "p"],
+    ["ʢ", "ʡ"],
+    ["⸮", "?"],
+    ["ʕ", "ʔ"],
+    ["ᖗ", "ᖘ"],
+    ["ᕦ", "ᕥ"],
+    ["ᕦ(", ")ᕥ"],
+    ["ᕙ(", ")ᕗ"],
+    ["ᘳ", "ᘰ"],
+    ["ᕮ", "ᕭ"],
+    ["ᕳ", "ᕲ"],
+    ["(", ")"],
+    ["[", "]"],
+    ["¯\\_", "_/¯"],
+    ["୧", "୨"],
+    ["୨", "୧"],
+    ["⤜(", ")⤏"],
+    ["☞", "☞"],
+    ["ᑫ", "ᑷ"],
+    ["ᑴ", "ᑷ"],
+    ["ヽ(", ")ﾉ"],
+    ["\\(", ")/"],
+    ["乁(", ")ㄏ"],
+    ["└[", "]┘"],
+    ["(づ", ")づ"],
+    ["(ง", ")ง"],
+    ["⎝", "⎠"],
+    ["ლ(", "ლ)"],
+    ["ᕕ(", ")ᕗ"],
+    ["(∩", ")⊃━☆ﾟ.*"],
 ]
 
 TOSS = (
     "Heads",
     "Tails",
-    "IGRIS ATE THE COIN", 
+    "IGRIS ATE THE COIN",
 )
 
-DECIDE = ("Yes.", "No.", "Maybe.", " Ask GodLike.","Ask ZekXx.")
+DECIDE = ("Yes.", "No.", "Maybe.", " Ask GodLike.", "Ask ZekXx.")
 
-TABLE = ("(╯°□°）╯彡 ┻━┻", "I ran out of tables, will order more.",
-         "Go do some work instead of flippin tables.")
+TABLE = (
+    "(╯°□°）╯彡 ┻━┻",
+    "I ran out of tables, will order more.",
+    "Go do some work instead of flippin tables.",
+)
