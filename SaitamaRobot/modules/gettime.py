@@ -5,7 +5,7 @@ import requests
 from SaitamaRobot import TIME_API_KEY, dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, run_async
+from telegram.ext import CallbackContext
 
 
 def generate_time(to_find: str, findtype: List[str]) -> str:
@@ -13,7 +13,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
         f"https://api.timezonedb.com/v2.1/list-time-zone"
         f"?key={TIME_API_KEY}"
         f"&format=json"
-        f"&fields=countryCode,countryName,zoneName,gmtOffset,timestamp,dst"
+        f"&fields=countryCode,countryName,zoneName,gmtOffset,timestamp,dst",
     ).json()
 
     for zone in data["zones"]:
@@ -23,18 +23,17 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
                 country_zone = zone["zoneName"]
                 country_code = zone["countryCode"]
 
-                if zone["dst"] == 1:
-                    daylight_saving = "Yes"
-                else:
-                    daylight_saving = "No"
-
+                daylight_saving = "Yes" if zone["dst"] == 1 else "No"
                 date_fmt = r"%d-%m-%Y"
                 time_fmt = r"%H:%M:%S"
                 day_fmt = r"%A"
                 gmt_offset = zone["gmtOffset"]
-                timestamp = datetime.datetime.now(
-                    datetime.timezone.utc
-                ) + datetime.timedelta(seconds=gmt_offset)
+                timestamp = (
+                    datetime.datetime.now(
+                        datetime.timezone.utc,
+                    )
+                    + datetime.timedelta(seconds=gmt_offset)
+                )
                 current_date = timestamp.strftime(date_fmt)
                 current_time = timestamp.strftime(time_fmt)
                 current_day = timestamp.strftime(day_fmt)
@@ -58,7 +57,6 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
     return result
 
 
-@run_async
 def gettime(update: Update, context: CallbackContext):
     message = update.effective_message
 
@@ -68,7 +66,8 @@ def gettime(update: Update, context: CallbackContext):
         message.reply_text("Provide a country name/abbreviation/timezone to find.")
         return
     send_message = message.reply_text(
-        f"Finding timezone info for <b>{query}</b>", parse_mode=ParseMode.HTML
+        f"Finding timezone info for <b>{query}</b>",
+        parse_mode=ParseMode.HTML,
     )
 
     query_timezone = query.lower()
@@ -87,18 +86,13 @@ def gettime(update: Update, context: CallbackContext):
         return
 
     send_message.edit_text(
-        result, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+        result,
+        parse_mode=ParseMode.HTML,
+        disable_web_page_preview=True,
     )
 
 
-__help__ = """
- • `/time <query>`*:* Gives information about a timezone.
-
-*Available queries:* Country Code/Country Name/Timezone Name
-• 🕐 [Timezones list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-"""
-
-TIME_HANDLER = DisableAbleCommandHandler("time", gettime)
+TIME_HANDLER = DisableAbleCommandHandler("time", gettime, run_async=True)
 
 dispatcher.add_handler(TIME_HANDLER)
 

@@ -1,6 +1,7 @@
 import importlib
+import collections
 
-from SaitamaRobot import dispatcher
+from SaitamaRobot import dispatcher, telethn
 from SaitamaRobot.__main__ import (
     CHAT_SETTINGS,
     DATA_EXPORT,
@@ -14,16 +15,16 @@ from SaitamaRobot.__main__ import (
 )
 from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 
 
-@run_async
 @dev_plus
 def load(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text.split(" ", 1)[1]
     load_messasge = message.reply_text(
-        f"Attempting to load module : <b>{text}</b>", parse_mode=ParseMode.HTML
+        f"Attempting to load module : <b>{text}</b>",
+        parse_mode=ParseMode.HTML,
     )
 
     try:
@@ -35,7 +36,7 @@ def load(update: Update, context: CallbackContext):
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
-    if not imported_module.__mod_name__.lower() in IMPORTED:
+    if imported_module.__mod_name__.lower() not in IMPORTED:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
         load_messasge.edit_text("Module already loaded.")
@@ -43,8 +44,11 @@ def load(update: Update, context: CallbackContext):
     if "__handlers__" in dir(imported_module):
         handlers = imported_module.__handlers__
         for handler in handlers:
-            if type(handler) != tuple:
+            if not isinstance(handler, tuple):
                 dispatcher.add_handler(handler)
+            elif isinstance(handler[0], collections.Callable):
+                callback, telethon_event = handler
+                telethn.add_event_handler(callback, telethon_event)
             else:
                 handler_name, priority = handler
                 dispatcher.add_handler(handler_name, priority)
@@ -79,17 +83,18 @@ def load(update: Update, context: CallbackContext):
         USER_SETTINGS[imported_module.__mod_name__.lower()] = imported_module
 
     load_messasge.edit_text(
-        "Successfully loaded module : <b>{}</b>".format(text), parse_mode=ParseMode.HTML
+        "Successfully loaded module : <b>{}</b>".format(text),
+        parse_mode=ParseMode.HTML,
     )
 
 
-@run_async
 @dev_plus
 def unload(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text.split(" ", 1)[1]
     unload_messasge = message.reply_text(
-        f"Attempting to unload module : <b>{text}</b>", parse_mode=ParseMode.HTML
+        f"Attempting to unload module : <b>{text}</b>",
+        parse_mode=ParseMode.HTML,
     )
 
     try:
@@ -108,11 +113,14 @@ def unload(update: Update, context: CallbackContext):
     if "__handlers__" in dir(imported_module):
         handlers = imported_module.__handlers__
         for handler in handlers:
-            if type(handler) == bool:
+            if isinstance(handler, bool):
                 unload_messasge.edit_text("This module can't be unloaded!")
                 return
-            elif type(handler) != tuple:
+            if not isinstance(handler, tuple):
                 dispatcher.remove_handler(handler)
+            elif isinstance(handler[0], collections.Callable):
+                callback, telethon_event = handler
+                telethn.remove_event_handler(callback, telethon_event)
             else:
                 handler_name, priority = handler
                 dispatcher.remove_handler(handler_name, priority)
@@ -146,11 +154,11 @@ def unload(update: Update, context: CallbackContext):
         USER_SETTINGS.pop(imported_module.__mod_name__.lower())
 
     unload_messasge.edit_text(
-        f"Successfully unloaded module : <b>{text}</b>", parse_mode=ParseMode.HTML
+        f"Successfully unloaded module : <b>{text}</b>",
+        parse_mode=ParseMode.HTML,
     )
 
 
-@run_async
 @sudo_plus
 def listmodules(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -166,9 +174,9 @@ def listmodules(update: Update, context: CallbackContext):
     message.reply_text(module_list, parse_mode=ParseMode.HTML)
 
 
-LOAD_HANDLER = CommandHandler("load", load)
-UNLOAD_HANDLER = CommandHandler("unload", unload)
-LISTMODULES_HANDLER = CommandHandler("listmodules", listmodules)
+LOAD_HANDLER = CommandHandler("load", load, run_async=True)
+UNLOAD_HANDLER = CommandHandler("unload", unload, run_async=True)
+LISTMODULES_HANDLER = CommandHandler("listmodules", listmodules, run_async=True)
 
 dispatcher.add_handler(LOAD_HANDLER)
 dispatcher.add_handler(UNLOAD_HANDLER)

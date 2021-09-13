@@ -10,7 +10,6 @@ from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
     CommandHandler,
-    run_async,
 )
 
 
@@ -29,7 +28,9 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
             if progress_message:
                 try:
                     bot.editMessageText(
-                        progress_bar, chat_id, progress_message.message_id
+                        progress_bar,
+                        chat_id,
+                        progress_message.message_id,
                     )
                 except:
                     pass
@@ -54,11 +55,10 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
 
     if not remove:
         return kicked_chats
-    else:
-        for muted_chat in chat_list:
-            sleep(0.1)
-            user_sql.rem_chat(muted_chat)
-        return kicked_chats
+    for muted_chat in chat_list:
+        sleep(0.1)
+        user_sql.rem_chat(muted_chat)
+    return kicked_chats
 
 
 def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = False):
@@ -80,14 +80,12 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
 
     if not remove:
         return ungbanned_users
-    else:
-        for user_id in ungban_list:
-            sleep(0.1)
-            gban_sql.ungban_user(user_id)
-        return ungbanned_users
+    for user_id in ungban_list:
+        sleep(0.1)
+        gban_sql.ungban_user(user_id)
+    return ungbanned_users
 
 
-@run_async
 @dev_plus
 def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
@@ -104,11 +102,11 @@ def dbcleanup(update: Update, context: CallbackContext):
     buttons = [[InlineKeyboardButton("Cleanup DB", callback_data="db_cleanup")]]
 
     update.effective_message.reply_text(
-        reply, reply_markup=InlineKeyboardMarkup(buttons)
+        reply,
+        reply_markup=InlineKeyboardMarkup(buttons),
     )
 
 
-@run_async
 def callback_button(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query
@@ -120,28 +118,29 @@ def callback_button(update: Update, context: CallbackContext):
 
     bot.answer_callback_query(query.id)
 
-    if query_type == "db_leave_chat":
-        if query.from_user.id in admin_list:
-            bot.editMessageText("Leaving chats ...", chat_id, message.message_id)
-            chat_count = get_muted_chats(update, context, True)
-            bot.sendMessage(chat_id, f"Left {chat_count} chats.")
-        else:
-            query.answer("You are not allowed to use this.")
+    if query_type == "db_leave_chat" and query.from_user.id in admin_list:
+        bot.editMessageText("Leaving chats ...", chat_id, message.message_id)
+        chat_count = get_muted_chats(update, context, True)
+        bot.sendMessage(chat_id, f"Left {chat_count} chats.")
+    elif (
+        query_type == "db_leave_chat"
+        or query_type == "db_cleanup"
+        and query.from_user.id not in admin_list
+    ):
+        query.answer("You are not allowed to use this.")
     elif query_type == "db_cleanup":
-        if query.from_user.id in admin_list:
-            bot.editMessageText("Cleaning up DB ...", chat_id, message.message_id)
-            invalid_chat_count = get_invalid_chats(update, context, True)
-            invalid_gban_count = get_invalid_gban(update, context, True)
-            reply = "Cleaned up {} chats and {} gbanned users from db.".format(
-                invalid_chat_count, invalid_gban_count
-            )
-            bot.sendMessage(chat_id, reply)
-        else:
-            query.answer("You are not allowed to use this.")
+        bot.editMessageText("Cleaning up DB ...", chat_id, message.message_id)
+        invalid_chat_count = get_invalid_chats(update, context, True)
+        invalid_gban_count = get_invalid_gban(update, context, True)
+        reply = "Cleaned up {} chats and {} gbanned users from db.".format(
+            invalid_chat_count,
+            invalid_gban_count,
+        )
+        bot.sendMessage(chat_id, reply)
 
 
-DB_CLEANUP_HANDLER = CommandHandler("dbcleanup", dbcleanup)
-BUTTON_HANDLER = CallbackQueryHandler(callback_button, pattern="db_.*")
+DB_CLEANUP_HANDLER = CommandHandler("dbcleanup", dbcleanup, run_async=True)
+BUTTON_HANDLER = CallbackQueryHandler(callback_button, pattern="db_.*", run_async=True)
 
 dispatcher.add_handler(DB_CLEANUP_HANDLER)
 dispatcher.add_handler(BUTTON_HANDLER)

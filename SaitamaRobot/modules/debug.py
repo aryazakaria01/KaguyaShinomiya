@@ -3,7 +3,7 @@ import datetime
 
 from telethon import events
 from telegram import Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 
 from SaitamaRobot import telethn, dispatcher
 from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus
@@ -11,7 +11,6 @@ from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus
 DEBUG_MODE = False
 
 
-@run_async
 @dev_plus
 def debug(update: Update, context: CallbackContext):
     global DEBUG_MODE
@@ -25,11 +24,10 @@ def debug(update: Update, context: CallbackContext):
         elif args[1] in ("no", "off"):
             DEBUG_MODE = False
             message.reply_text("Debug mode is now off.")
+    elif DEBUG_MODE:
+        message.reply_text("Debug mode is currently on.")
     else:
-        if DEBUG_MODE:
-            message.reply_text("Debug mode is currently on.")
-        else:
-            message.reply_text("Debug mode is currently off.")
+        message.reply_text("Debug mode is currently off.")
 
 
 @telethn.on(events.NewMessage(pattern="[/!].*"))
@@ -45,11 +43,24 @@ async def i_do_nothing_yes(event):
         else:
             with open("updates.txt", "w+") as f:
                 f.write(
-                    f"- {event.from_id} ({event.chat_id}) : {event.text} | {datetime.datetime.now()}"
+                    f"- {event.from_id} ({event.chat_id}) : {event.text} | {datetime.datetime.now()}",
                 )
 
 
-DEBUG_HANDLER = CommandHandler("debug", debug)
+support_chat = os.getenv("SUPPORT_CHAT")
+
+
+@dev_plus
+def logs(update: Update, context: CallbackContext):
+    user = update.effective_user
+    with open("log.txt", "rb") as f:
+        context.bot.send_document(document=f, filename=f.name, chat_id=user.id)
+
+
+LOG_HANDLER = CommandHandler("logs", logs, run_async=True)
+dispatcher.add_handler(LOG_HANDLER)
+
+DEBUG_HANDLER = CommandHandler("debug", debug, run_async=True)
 dispatcher.add_handler(DEBUG_HANDLER)
 
 __mod_name__ = "Debug"

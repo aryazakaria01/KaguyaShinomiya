@@ -10,7 +10,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram import ParseMode, Update
     from telegram.error import BadRequest, Unauthorized
-    from telegram.ext import CommandHandler, JobQueue, run_async
+    from telegram.ext import CommandHandler, JobQueue
     from telegram.utils.helpers import escape_markdown
 
     from SaitamaRobot import EVENT_LOGS, LOGGER, dispatcher
@@ -58,7 +58,7 @@ if is_module_loaded(FILENAME):
             if result:
                 datetime_fmt = "%H:%M - %d-%m-%Y"
                 result += "\n<b>Event Stamp</b>: <code>{}</code>".format(
-                    datetime.utcnow().strftime(datetime_fmt)
+                    datetime.utcnow().strftime(datetime_fmt),
                 )
 
                 if message.chat.type == chat.SUPERGROUP and message.chat.username:
@@ -72,7 +72,10 @@ if is_module_loaded(FILENAME):
         return glog_action
 
     def send_log(
-        context: CallbackContext, log_chat_id: str, orig_chat_id: str, result: str
+        context: CallbackContext,
+        log_chat_id: str,
+        orig_chat_id: str,
+        result: str,
     ):
         bot = context.bot
         try:
@@ -85,7 +88,8 @@ if is_module_loaded(FILENAME):
         except BadRequest as excp:
             if excp.message == "Chat not found":
                 bot.send_message(
-                    orig_chat_id, "This log channel has been deleted - unsetting."
+                    orig_chat_id,
+                    "This log channel has been deleted - unsetting.",
                 )
                 sql.stop_chat_logging(orig_chat_id)
             else:
@@ -99,7 +103,6 @@ if is_module_loaded(FILENAME):
                     + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
-    @run_async
     @user_admin
     def logging(update: Update, context: CallbackContext):
         bot = context.bot
@@ -118,7 +121,6 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("No log channel has been set for this group!")
 
-    @run_async
     @user_admin
     def setlog(update: Update, context: CallbackContext):
         bot = context.bot
@@ -126,7 +128,7 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
         if chat.type == chat.CHANNEL:
             message.reply_text(
-                "Now, forward the /setlog to the group you want to tie this channel to!"
+                "Now, forward the /setlog to the group you want to tie this channel to!",
             )
 
         elif message.forward_from_chat:
@@ -134,11 +136,9 @@ if is_module_loaded(FILENAME):
             try:
                 message.delete()
             except BadRequest as excp:
-                if excp.message == "Message to delete not found":
-                    pass
-                else:
+                if excp.message != "Message to delete not found":
                     LOGGER.exception(
-                        "Error deleting message in log channel. Should work anyway though."
+                        "Error deleting message in log channel. Should work anyway though.",
                     )
 
             try:
@@ -159,10 +159,9 @@ if is_module_loaded(FILENAME):
                 "The steps to set a log channel are:\n"
                 " - add bot to the desired channel\n"
                 " - send /setlog to the channel\n"
-                " - forward the /setlog to the group\n"
+                " - forward the /setlog to the group\n",
             )
 
-    @run_async
     @user_admin
     def unsetlog(update: Update, context: CallbackContext):
         bot = context.bot
@@ -172,7 +171,8 @@ if is_module_loaded(FILENAME):
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:
             bot.send_message(
-                log_channel, f"Channel has been unlinked from {chat.title}"
+                log_channel,
+                f"Channel has been unlinked from {chat.title}",
             )
             message.reply_text("Log channel has been un-set.")
 
@@ -204,11 +204,11 @@ Setting the log channel is done by:
 • forwarding the `/setlog` to the group
 """
 
-    __mod_name__ = "Log Channels"
+    __mod_name__ = "Logger"
 
-    LOG_HANDLER = CommandHandler("logchannel", logging)
-    SET_LOG_HANDLER = CommandHandler("setlog", setlog)
-    UNSET_LOG_HANDLER = CommandHandler("unsetlog", unsetlog)
+    LOG_HANDLER = CommandHandler("logchannel", logging, run_async=True)
+    SET_LOG_HANDLER = CommandHandler("setlog", setlog, run_async=True)
+    UNSET_LOG_HANDLER = CommandHandler("unsetlog", unsetlog, run_async=True)
 
     dispatcher.add_handler(LOG_HANDLER)
     dispatcher.add_handler(SET_LOG_HANDLER)

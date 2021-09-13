@@ -12,7 +12,6 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
-    run_async,
 )
 from telegram.utils.helpers import mention_html
 
@@ -20,7 +19,6 @@ REPORT_GROUP = 12
 REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES
 
 
-@run_async
 @user_admin
 def report_setting(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -32,7 +30,7 @@ def report_setting(update: Update, context: CallbackContext):
             if args[0] in ("yes", "on"):
                 sql.set_user_setting(chat.id, True)
                 msg.reply_text(
-                    "Turned on reporting! You'll be notified whenever anyone reports something."
+                    "Turned on reporting! You'll be notified whenever anyone reports something.",
                 )
 
             elif args[0] in ("no", "off"):
@@ -44,28 +42,26 @@ def report_setting(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.MARKDOWN,
             )
 
-    else:
-        if len(args) >= 1:
-            if args[0] in ("yes", "on"):
-                sql.set_chat_setting(chat.id, True)
-                msg.reply_text(
-                    "Turned on reporting! Admins who have turned on reports will be notified when /report "
-                    "or @admin is called."
-                )
-
-            elif args[0] in ("no", "off"):
-                sql.set_chat_setting(chat.id, False)
-                msg.reply_text(
-                    "Turned off reporting! No admins will be notified on /report or @admin."
-                )
-        else:
+    elif len(args) >= 1:
+        if args[0] in ("yes", "on"):
+            sql.set_chat_setting(chat.id, True)
             msg.reply_text(
-                f"This group's current setting is: `{sql.chat_should_report(chat.id)}`",
-                parse_mode=ParseMode.MARKDOWN,
+                "Turned on reporting! Admins who have turned on reports will be notified when /report "
+                "or @admin is called.",
             )
 
+        elif args[0] in ("no", "off"):
+            sql.set_chat_setting(chat.id, False)
+            msg.reply_text(
+                "Turned off reporting! No admins will be notified on /report or @admin.",
+            )
+    else:
+        msg.reply_text(
+            f"This group's current setting is: `{sql.chat_should_report(chat.id)}`",
+            parse_mode=ParseMode.MARKDOWN,
+        )
 
-@run_async
+
 @user_not_admin
 @loggable
 def report(update: Update, context: CallbackContext) -> str:
@@ -113,7 +109,7 @@ def report(update: Update, context: CallbackContext) -> str:
                     InlineKeyboardButton(
                         "➡ Message",
                         url=f"https://t.me/{chat.username}/{message.reply_to_message.message_id}",
-                    )
+                    ),
                 ],
                 [
                     InlineKeyboardButton(
@@ -129,7 +125,7 @@ def report(update: Update, context: CallbackContext) -> str:
                     InlineKeyboardButton(
                         "❎ Delete Message",
                         callback_data=f"report_{chat.id}=delete={reported_user.id}={message.reply_to_message.message_id}",
-                    )
+                    ),
                 ],
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
@@ -149,9 +145,11 @@ def report(update: Update, context: CallbackContext) -> str:
 
             if sql.user_should_report(admin.user.id):
                 try:
-                    if not chat.type == Chat.SUPERGROUP:
+                    if chat.type != Chat.SUPERGROUP:
                         bot.send_message(
-                            admin.user.id, msg + link, parse_mode=ParseMode.HTML
+                            admin.user.id,
+                            msg + link,
+                            parse_mode=ParseMode.HTML,
                         )
 
                         if should_forward:
@@ -163,7 +161,9 @@ def report(update: Update, context: CallbackContext) -> str:
                                 message.forward(admin.user.id)
                     if not chat.username:
                         bot.send_message(
-                            admin.user.id, msg + link, parse_mode=ParseMode.HTML
+                            admin.user.id,
+                            msg + link,
+                            parse_mode=ParseMode.HTML,
                         )
 
                         if should_forward:
@@ -208,31 +208,16 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(update, context, chat, chatP, user):
+def __chat_settings__(chat_id, _):
     return f"This chat is setup to send user reports to admins, via /report and @admin: `{sql.chat_should_report(chat_id)}`"
 
 
-def __user_settings__(update, context, user):
-    if sql.user_should_report(user.id) is True:
-        text = "You will receive reports from chats you're admin."
-        keyboard = [
-            [
-                InlineKeyboardButton(
-                    text="Disable reporting", callback_data="panel_reporting_U_disable"
-                )
-            ]
-        ]
-    else:
-        text = "You will *not* receive reports from chats you're admin."
-        keyboard = [
-            [
-                InlineKeyboardButton(
-                    text="Enable reporting", callback_data="panel_reporting_U_enable"
-                )
-            ]
-        ]
-
-    return text, keyboard
+def __user_settings__(user_id):
+    return (
+        "You will receive reports from chats you're admin."
+        if sql.user_should_report(user_id) is True
+        else "You will *not* receive reports from chats you're admin."
+    )
 
 
 def buttons(update: Update, context: CallbackContext):
@@ -246,7 +231,7 @@ def buttons(update: Update, context: CallbackContext):
             query.answer("✅ Succesfully kicked")
             return ""
         except Exception as err:
-            query.answer("🛑 Failed to Punch")
+            query.answer("🛑 Failed to Kick")
             bot.sendMessage(
                 text=f"Error: {err}",
                 chat_id=query.message.chat_id,
@@ -289,13 +274,18 @@ __help__ = """
    • If in group, toggles that groups's status.
 """
 
-SETTING_HANDLER = CommandHandler("reports", report_setting)
-REPORT_HANDLER = CommandHandler("report", report, filters=Filters.group)
-ADMIN_REPORT_HANDLER = MessageHandler(Filters.regex(r"(?i)@admin(s)?"), report)
+SETTING_HANDLER = CommandHandler("reports", report_setting, run_async=True)
+REPORT_HANDLER = CommandHandler(
+    "report", report, filters=Filters.chat_type.groups, run_async=True
+)
+ADMIN_REPORT_HANDLER = MessageHandler(
+    Filters.regex(r"(?i)@admin(s)?"), report, run_async=True
+)
+REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(
+    buttons, pattern=r"report_", run_async=True
+)
 
-REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(buttons, pattern=r"report_")
 dispatcher.add_handler(REPORT_BUTTON_USER_HANDLER)
-
 dispatcher.add_handler(SETTING_HANDLER)
 dispatcher.add_handler(REPORT_HANDLER, REPORT_GROUP)
 dispatcher.add_handler(ADMIN_REPORT_HANDLER, REPORT_GROUP)
