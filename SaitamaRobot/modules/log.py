@@ -15,11 +15,11 @@ def logs(update: Update, context: CallbackContext):
     if chat_id != -1001408942668:
         return
     user = update.effective_user
-    with open('log.txt', 'rb') as f:
+    with open("log.txt", "rb") as f:
 
         context.bot.send_document(document=f, filename=f.name, chat_id=user.id)
 
 
-LOG_HANDLER = CommandHandler('logs', logs)
+LOG_HANDLER = CommandHandler("logs", logs)
 
 dispatcher.add_handler(LOG_HANDLER)
