@@ -18,14 +18,13 @@ from SaitamaRobot.modules.helper_funcs.extraction import (
 from SaitamaRobot.modules.log_channel import gloggable
 from telegram import ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
 BLABLEUSERS = [OWNER_ID] + DEV_USERS
 
 
-@run_async
 @dev_plus
 @gloggable
 def bl_user(update: Update, context: CallbackContext) -> str:
@@ -52,8 +51,7 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user.")
             return ""
-        else:
-            raise
+        raise
 
     sql.blacklist_user(user_id, reason)
     message.reply_text("I shall ignore the existence of this user!")
@@ -68,7 +66,6 @@ def bl_user(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@run_async
 @dev_plus
 @gloggable
 def unbl_user(update: Update, context: CallbackContext) -> str:
@@ -91,8 +88,7 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user.")
             return ""
-        else:
-            raise
+        raise
 
     if sql.is_user_blacklisted(user_id):
 
@@ -105,13 +101,10 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         )
 
         return log_message
-
-    else:
-        message.reply_text("I am not ignoring them at all though!")
-        return ""
+    message.reply_text("I am not ignoring them at all though!")
+    return ""
 
 
-@run_async
 @dev_plus
 def bl_users(update: Update, context: CallbackContext):
     users = []
@@ -122,7 +115,7 @@ def bl_users(update: Update, context: CallbackContext):
 
         if reason:
             users.append(
-                f"• {mention_html(user.id, html.escape(user.first_name))} :- {reason}"
+                f"• {mention_html(user.id, html.escape(user.first_name))} :- {reason}",
             )
         else:
             users.append(f"• {mention_html(user.id, html.escape(user.first_name))}")
@@ -157,9 +150,9 @@ def __user_info__(user_id):
     return text
 
 
-BL_HANDLER = CommandHandler("ignore", bl_user)
-UNBL_HANDLER = CommandHandler("notice", unbl_user)
-BLUSERS_HANDLER = CommandHandler("ignoredlist", bl_users)
+BL_HANDLER = CommandHandler("ignore", bl_user, run_async=True)
+UNBL_HANDLER = CommandHandler("notice", unbl_user, run_async=True)
+BLUSERS_HANDLER = CommandHandler("ignoredlist", bl_users, run_async=True)
 
 dispatcher.add_handler(BL_HANDLER)
 dispatcher.add_handler(UNBL_HANDLER)
