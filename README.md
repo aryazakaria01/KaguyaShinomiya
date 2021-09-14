@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="https://telegra.ph/file/0704c461e0702b7b5074e.mp4">
-</p>
+![KAGUYA](https://telegra.ph/file/0704c461e0702b7b5074e.mp4)
 
 # Kaguya Shinomiya
 
