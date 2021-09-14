@@ -6,10 +6,9 @@ import textwrap
 import traceback
 from contextlib import redirect_stdout
 
-from SaitamaRobot import LOGGER, dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus
+from SaitamaRobot import LOGGER, OWNER_ID
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import Filters, CommandHandler, CallbackContext
 
 namespaces = {}
 
@@ -48,15 +47,11 @@ def send(msg, bot, update):
         )
 
 
-@dev_plus
-@run_async
 def evaluate(update: Update, context: CallbackContext):
     bot = context.bot
     send(do(eval, bot, update), bot, update)
 
 
-@dev_plus
-@run_async
 def execute(update: Update, context: CallbackContext):
     bot = context.bot
     send(do(exec, bot, update), bot, update)
@@ -76,7 +71,8 @@ def do(func, bot, update):
 
     os.chdir(os.getcwd())
     with open(
-        os.path.join(os.getcwd(), "SaitamaRobot/modules/helper_funcs/temp.txt"), "w"
+        os.path.join(os.getcwd(), "SaitamaRobot/modules/helper_funcs/temp.txt"),
+        "w",
     ) as temp:
         temp.write(body)
 
@@ -114,8 +110,6 @@ def do(func, bot, update):
             return result
 
 
-@dev_plus
-@run_async
 def clear(update: Update, context: CallbackContext):
     bot = context.bot
     log_input(update)
@@ -124,10 +118,10 @@ def clear(update: Update, context: CallbackContext):
         del namespaces[update.message.chat_id]
     send("Cleared locals.", bot, update)
 
+EVAL_HANDLER = CommandHandler(["e", "ev", "eva", "eval"], evaluate, filters=Filters.user(OWNER_ID))
+EXEC_HANDLER = CommandHandler(["x", "ex", "exe", "exec", "py"], execute, filters=Filters.user(OWNER_ID))
+CLEAR_HANDLER  = CommandHandler("clearlocals", clear, filters=Filters.user(OWNER_ID))
 
-EVAL_HANDLER = CommandHandler(("e", "ev", "eva", "eval"), evaluate)
-EXEC_HANDLER = CommandHandler(("x", "ex", "exe", "exec", "py"), execute)
-CLEAR_HANDLER = CommandHandler("clearlocals", clear)
 
 dispatcher.add_handler(EVAL_HANDLER)
 dispatcher.add_handler(EXEC_HANDLER)
