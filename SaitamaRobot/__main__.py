@@ -104,7 +104,7 @@ buttons = [
                   InlineKeyboardButton(
                       text="｢ ᴀᴅᴅ ᴍᴇ ᴛᴏ ɢʀᴏᴜᴘ 」", 
                       url="t.me/{}?startgroup=true".format(
-                          context.bot.username),
+                          dispatcher.bot.username),
                   ),
               ],
               [
