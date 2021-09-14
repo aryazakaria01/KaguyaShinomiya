@@ -2,23 +2,14 @@ import logging
 import os
 import sys
 import json
-import asyncio
 import time
 import spamwatch
+
 import telegram.ext as tg
-from redis import StrictRedis
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
-from pymongo import MongoClient
-from odmantic import AIOEngine
-from motor import motor_asyncio
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
-from pyrogram import Client, errors
-from pymongo.errors import ServerSelectionTimeoutError
-from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
-from pyrogram.types import Chat, User
-from ptbcontrib.postgres_persistence import PostgresPersistence
 
 StartTime = time.time()
 
@@ -39,18 +30,9 @@ logging.basicConfig(
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 LOGGER = logging.getLogger(__name__)
-
-
-LOGGER.info(
-    "[KaguyaRobot] Kai is starting. | An Arya Union Project. | Licensed under GPLv3."
-)
-
-LOGGER.info(
-    "[KaguyaRobot] Not affiliated to Shie Hashaikai or Villain in any way whatsoever."
-)
-LOGGER.info(
-    "[KaguyaRobot] Project maintained by: github.com/aryzakaria01 (t.me/Badboyanim)"
-)
+LOGGER.info("[KaguyaRobot] Kai is starting. | An Zero Union Project. | Licensed under GPLv3.")
+LOGGER.info("[KaguyaRobot] Not affiliated to Shie Hashaikai or Villain in any way whatsoever.")
+LOGGER.info("[KaguyaRobot] Project maintained by: github.com/Ryomen-Sukuna (t.me/Anomaliii)")
 
 # if version < 3.6, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
@@ -108,7 +90,6 @@ if ENV:
     REDIS_URL = os.environ.get("REDIS_URL", None)
     ARQ_API = os.environ.get("ARQ_API", None)
     DONATION_LINK = os.environ.get("DONATION_LINK")
-    DONATION_LINK = os.environ.get("DONATION_LINK")
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
@@ -123,7 +104,6 @@ if ENV:
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     LASTFM_API_KEY = os.environ.get("LASTFM_API_KEY", None)
-    CF_API_KEY = os.environ.get("CF_API_KEY", None)
     BOT_ID = int(os.environ.get("BOT_ID", None))
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
@@ -198,7 +178,6 @@ else:
     SPAMWATCH_API = Config.SPAMWATCH_API
     INFOPIC = Config.INFOPIC
     LASTFM_API_KEY = Config.LASTFM_API_KEY
-    CF_API_KEY = Config.CF_API_KEY
 
     try:
         BL_CHATS = {int(x) for x in Config.BL_CHATS or []}
@@ -208,16 +187,7 @@ else:
 DRAGONS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
 
-REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
-
-try:
-    REDIS.ping()
-    LOGGER.info("Your redis server is now alive!")
-except BaseException:
-    raise Exception("Your redis server is not alive, please check again.")
-finally:
-    REDIS.ping()
-    LOGGER.info("Your redis server is now alive!")
+# SpamWatch
 if not SPAMWATCH_API:
     sw = None
     LOGGER.warning("SpamWatch API key missing! recheck your config")
@@ -228,64 +198,20 @@ else:
         sw = None
         LOGGER.warning("Can't connect to SpamWatch!")
 
-from SaitamaRobot.modules.sql import SESSION
-
+# Updater
 updater = tg.Updater(
     TOKEN,
     workers=min(32, os.cpu_count() + 4),
     request_kwargs={"read_timeout": 10, "connect_timeout": 10},
-    persistence=PostgresPersistence(SESSION),
 )
+# Telethon
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
+# Bot itself
 dispatcher = updater.dispatcher
-mongodb = MongoClient(MONGO_URI, MONGO_PORT)[MONGO_DB]
-motor = motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-db = motor[MONGO_DB]
-engine = AIOEngine(motor, MONGO_DB)
-print("[INFO]: INITIALIZING AIOHTTP SESSION")
+# Aiohttp Session
 aiohttpsession = ClientSession()
 # ARQ Client
-print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
-
-
-kp = Client(
-    ":memory:",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TOKEN,
-    workers=min(32, os.cpu_count() + 4),
-)
-apps = []
-apps.append(kp)
-
-
-async def get_entity(client, entity):
-    entity_client = client
-    if not isinstance(entity, Chat):
-        try:
-            entity = int(entity)
-        except ValueError:
-            pass
-        except TypeError:
-            entity = entity.id
-        try:
-            entity = await client.get_chat(entity)
-        except (PeerIdInvalid, ChannelInvalid):
-            for kp in apps:
-                if kp != client:
-                    try:
-                        entity = await kp.get_chat(entity)
-                    except (PeerIdInvalid, ChannelInvalid):
-                        pass
-                    else:
-                        entity_client = kp
-                        break
-            else:
-                entity = await kp.get_chat(entity)
-                entity_client = kp
-    return entity, entity_client
-
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
