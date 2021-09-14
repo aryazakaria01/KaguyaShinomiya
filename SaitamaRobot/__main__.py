@@ -6,7 +6,6 @@ import traceback
 from typing import Optional, List
 from sys import argv
 import requests
-from pyrogram import idle, Client
 from telegram import Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import (
     TelegramError,
@@ -38,7 +37,6 @@ from SaitamaRobot import (
     dispatcher,
     telethn,
     updater,
-    kp,
 )
 
 # needed to dynamically load modules
@@ -91,8 +89,8 @@ HELP_STRINGS = """
  ➛ /help <module name>: PM's you info about that module.
  ➛ /donate: information on how to donate!
  ➛ /settings:
-   ❂ in PM: will send you your settings for all supported modules.
-   ❂ in a group: will redirect you to pm, with all that chat's settings.
+  ❂ in PM: will send you your settings for all supported modules.
+  ❂ in a group: will redirect you to pm, with all that chat's settings.
 """
 
 
@@ -300,7 +298,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* module:\n".format(
+                "❂ Help for *{}* module ××:\n".format(
                     HELPABLE[module].__mod_name__,
                 )
                 + HELPABLE[module].__help__
@@ -633,7 +631,9 @@ def main():
     # dispatcher.add_error_handler(error_handler)
 
     if WEBHOOK:
-        LOGGER.info("Using webhooks.")
+        LOGGER.info(
+            f"Kaguya started, Using webhook. | BOT: [@{dispatcher.bot.username}]"
+        )
         updater.start_webhook(listen="127.0.0.1", port=PORT, url_path=TOKEN)
 
         if CERT_PATH:
@@ -656,5 +656,3 @@ def main():
 if __name__ == "__main__":
     LOGGER.info("[KaguyaRobot] Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
-    kp.start()
-    main()
