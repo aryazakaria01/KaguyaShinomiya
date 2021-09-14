@@ -28,7 +28,7 @@
 <img src="https://app.codacy.com/project/badge/Grade/5c121a363d734496846820ee8006c527"/></a>
 </p>
 
-Originally [Saitama](https://github.com/AnimeKaizoku/SaitamaRobot) fork. Kai is a simple solution to your group management needs 
+Originally [Saitama](https://github.com/AnimeKaizoku/SaitamaRobot) fork. Kaguya is a simple solution to your group management needs 
 , purely weeab themed. 
 
 * Bot Link:  <a href="https://t.me/YuiDefenderBot" alt="Kaguya Shinomiya"> <img src="https://img.shields.io/badge/%F0%9F%A4%96%20-Kaguya Shinomiya-blue" /> </a>
