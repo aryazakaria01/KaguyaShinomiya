@@ -70,7 +70,8 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     calc = len(modules) - round(round_num)
     if calc in [1, 2]:
         pairs.append((modules[-1],))
-    return pairs
+    else:
+        pairs += [[EqInlineKeyboardButton("Back", callback_data="kaguya_back")]]
 
 
 def send_to_list(
