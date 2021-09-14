@@ -1,5 +1,3 @@
-![KAGUYA](https://telegra.ph/file/0704c461e0702b7b5074e.mp4)
-
 # Kaguya Shinomiya
 
 <p align="center">
@@ -20,7 +18,6 @@
 <a href="https://github.com/aryazakaria01/KaguyaShinomiya" alt="GitHub repo size"> <img src="https://img.shields.io/github/repo-size/aryazakaria01/kaguyashinomiya" /> </a>
 <a href="https://makeapullrequest.com" alt="PRs Welcome"> <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" /> </a>
 <a href="https://github.com/aryazakaria01/KaguyaShinomiya" alt="Docker!"> <img src="https://aleen42.github.io/badges/src/docker.svg" /> </a>
-<a href="https://www.codefactor.io/repository/github/aryazakaria01/kaguyashinomiya"><img src="https://www.codefactor.io/repository/github/aryazakaria01/kaguyashinomiya/badge" alt="CodeFactor" /></a>
 </p>
 <p align="center">
 <a href="https://t.me/CyberSupportGroup" alt="Telegram!"> <img src="https://aleen42.github.io/badges/src/telegram.svg" /> </a>
