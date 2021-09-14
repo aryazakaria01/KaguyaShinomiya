@@ -98,10 +98,31 @@ HELP_STRINGS = """
 """
 
 
-buttons = [[InlineKeyboardButton(text="｢ ᴀᴅᴅ ᴍᴇ ᴛᴏ ɢʀᴏᴜᴘ 」", url="t.me/{}?startgroup=true".format(context.bot.username))],
-          [InlineKeyboardButton(text="｢ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 」", url="https://t.me/CyberSupportGroup"),
-          InlineKeyboardButton(text="｢ ᴏғғ ᴛᴏᴘɪᴄ 」", url="https://t.me/animeeindonesia")],
-          [InlineKeyboardButton(text="｢ ʜᴇʟᴘ 」", callback_data="help_back")]]))
+buttons = [
+              [
+                  InlineKeyboardButton(
+                      text="｢ ᴀᴅᴅ ᴍᴇ ᴛᴏ ɢʀᴏᴜᴘ 」", 
+                      url="t.me/{}?startgroup=true".format(
+                          context.bot.username),
+                  ),
+              ],
+              [
+                  InlineKeyboardButton(
+                      text="｢ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 」", 
+                      url="https://t.me/ironbloodnations",
+                  ),
+                  InlineKeyboardButton(
+                      text="｢ ᴏғғ ᴛᴏᴘɪᴄ 」",
+                      url="https://t.me/animeeindonesia",
+                  ),
+              ],
+              [
+                  InlineKeyboardButton(
+                      text="｢ ʜᴇʟᴘ 」", 
+                      callback_data="help_back",
+                  ),
+              ],
+          ]
 
 
 KAGUYA_IMG = "https://telegra.ph/file/0704c461e0702b7b5074e.mp4"
