@@ -42,3 +42,7 @@ Should you be forking this repo then do not forget to star it - <img alt="GitHub
 + [Userbotindo](https://github.com/userbotindo) for misc
 + Well, it's all in the commit history 
 Feel free to open pull requests should any be missing.
+
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aryazakaria01/KaguyaShinomiya)
